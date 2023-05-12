@@ -5,6 +5,8 @@ import { ChatRoomWrapper } from "./ChatRoom.style";
 import io from "socket.io-client";
 import { Box } from "@mui/material";
 import { TopBar } from "Components/TopBar";
+import { MessageArea } from "Components/MessageArea";
+import CustomInput from "Components/CustomInput/CustomInput";
 
 let socket;
 const BACKEND_URL = "http://localhost:5050";
@@ -17,6 +19,8 @@ const ChatRoom = () => {
   const [chatRoomName, setChatRoomName] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+
+  const submitHandler = () => {};
 
   useEffect(() => {
     const { userName, chatRoomName } = queryString.parse(location.search);
@@ -53,6 +57,12 @@ const ChatRoom = () => {
     <ChatRoomWrapper>
       <Box className="container">
         <TopBar chatRoomName={chatRoomName} />
+        <MessageArea messages={messages} userName={userName} />
+        <CustomInput
+          message={message}
+          setMessage={setMessage}
+          submitHandler={submitHandler}
+        />
       </Box>
     </ChatRoomWrapper>
   );

@@ -16,7 +16,7 @@ export const TopBarWrapper = styled.div`
   .left-container {
     display: flex;
     gap: 15px;
-    width: 50vw;
+    align-items: center;
 
     .title {
       display: flex;
