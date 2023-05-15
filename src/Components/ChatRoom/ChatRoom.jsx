@@ -20,7 +20,12 @@ const ChatRoom = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const submitHandler = () => {};
+  const submitHandler = (e) => {
+    if(e.keyCode === 13 && !!message.trim()){
+      socket.emit('user-msg', message)
+      setMessage('')
+    }
+  };
 
   useEffect(() => {
     const { userName, chatRoomName } = queryString.parse(location.search);
