@@ -21,9 +21,16 @@ const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
 
   const submitHandler = (e) => {
-    if(e.keyCode === 13 && !!message.trim()){
-      socket.emit('user-msg', message)
-      setMessage('')
+    if (e.keyCode === 13 && !!message.trim()) {
+      socket.emit("user-msg", message);
+      setMessage("");
+    }
+  };
+
+  const sendMessage = () => {
+    if (!!message.trim()) {
+      socket.emit("user-msg", message);
+      setMessage("");
     }
   };
 
@@ -35,6 +42,7 @@ const ChatRoom = () => {
 
     socket = io(BACKEND_URL, {
       transports: ["websocket", "polling", "flashsocket"],
+      auth: {offset: 'checkingHandshake'}
     });
 
     socket.emit("join-room", { userName, chatRoomName }, (error) => {
@@ -67,6 +75,7 @@ const ChatRoom = () => {
           message={message}
           setMessage={setMessage}
           submitHandler={submitHandler}
+          sendMessage={sendMessage}
         />
       </Box>
     </ChatRoomWrapper>
